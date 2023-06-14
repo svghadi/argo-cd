@@ -424,6 +424,8 @@ func (a *ArgoCDServer) Init(ctx context.Context) {
 // golang/protobuf).
 func (a *ArgoCDServer) Run(ctx context.Context, listeners *Listeners) {
 	a.userStateStorage.Init(ctx)
+	sessMgr := util_session.NewSessionManager(a.settingsMgr, a.projLister, a.ArgoCDServerOpts.DexServerAddr, a.ArgoCDServerOpts.DexTLSConfig, a.userStateStorage)
+	a.sessionMgr = sessMgr
 	svcSet := newArgoCDServiceSet(a)
 	a.serviceSet = svcSet
 	grpcS, appResourceTreeFn := a.newGRPCServer()
@@ -1060,8 +1062,16 @@ func (a *ArgoCDServer) registerDexHandlers(mux *http.ServeMux) {
 	mux.HandleFunc(common.DexAPIEndpoint+"/", dexutil.NewDexHTTPReverseProxy(a.DexServerAddr, a.BaseHRef, a.DexTLSConfig))
 	a.ssoClientApp, err = oidc.NewClientApp(a.settings, a.DexServerAddr, a.DexTLSConfig, a.BaseHRef)
 	errorsutil.CheckError(err)
-	mux.HandleFunc(common.LoginEndpoint, a.ssoClientApp.HandleLogin)
-	mux.HandleFunc(common.CallbackEndpoint, a.ssoClientApp.HandleCallback)
+
+	var loginHandler http.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		a.ssoClientApp.HandleLogin(w, r)
+	})
+	mux.Handle(common.LoginEndpoint, loginHandler)
+
+	var callbackHandler http.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		a.ssoClientApp.HandleCallback(w, r)
+	})
+	mux.Handle(common.CallbackEndpoint, callbackHandler)
 }
 
 // newRedirectServer returns an HTTP server which does a 307 redirect to the HTTPS server

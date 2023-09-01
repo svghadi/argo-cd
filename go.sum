@@ -695,10 +695,8 @@ github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb
 github.com/apache/thrift v0.13.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/apache/thrift v0.16.0/go.mod h1:PHK3hniurgQaNMZYaCLEqXKsYK8upmhPbmdP2FXSqgU=
 github.com/appscode/go v0.0.0-20191119085241-0887d8ec2ecc/go.mod h1:OawnOmAL4ZX3YaPdN+8HTNwBveT1jMsqP74moa9XUbE=
-github.com/argoproj/gitops-engine v0.7.1-0.20231102154024-c0c2dd1f6f48 h1:vnXMrNkBFC0H0KBkH1Jno31OVgJQR4KSd0ypEcfzQRA=
-github.com/argoproj/gitops-engine v0.7.1-0.20231102154024-c0c2dd1f6f48/go.mod h1:1TchqKw9XmYYZluyEHa1dTJQoZgbV6PhabB/e8Wf3KY=
-github.com/argoproj/notifications-engine v0.4.1-0.20230905144632-9dcecdc3eebf h1:4wliaBwd6iKvT/5huDTJntaYtTSdwPLs00SOQwDSK6A=
-github.com/argoproj/notifications-engine v0.4.1-0.20230905144632-9dcecdc3eebf/go.mod h1:TuK0BNKo34DIUOyCCGOB9ij+smGCxeCgt9ZB+0fMWno=
+github.com/argoproj/notifications-engine v0.4.1-0.20230620204159-3446d4ae8520 h1:ZCpg1Zk78E8QxMI52w6ZIddxkBHv27YWmfWQdxxWUkw=
+github.com/argoproj/notifications-engine v0.4.1-0.20230620204159-3446d4ae8520/go.mod h1:sbhf4EjAUGAqRdHIzifDIiWsjlsTfmytVJJCCiUdyVA=
 github.com/argoproj/pkg v0.13.7-0.20230626144333-d56162821bd1 h1:qsHwwOJ21K2Ao0xPju1sNuqphyMnMYkyB3ZLoLtxWpo=
 github.com/argoproj/pkg v0.13.7-0.20230626144333-d56162821bd1/go.mod h1:CZHlkyAD1/+FbEn6cB2DQTj48IoLGvEYsWEvtzP3238=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
@@ -1658,6 +1656,10 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
+github.com/svghadi/gitops-engine v0.0.0-20230831172231-43446b6372bd h1:4hwnVEGYqN5kAiMF+52b9dKlKZW+8cWf1SaAWQwmW6k=
+github.com/svghadi/gitops-engine v0.0.0-20230831172231-43446b6372bd/go.mod h1:WpA/B7tgwfz+sdNE3LqrTrb7ArEY1FOPI2pAGI0hfPc=
+github.com/syndtr/gocapability v0.0.0-20200815063812-42c35b437635/go.mod h1:hkRG7XYTFWNJGYcbNJQlaLq0fg1yr4J4t/NcTQtrfww=
 github.com/tidwall/gjson v1.14.4 h1:uo0p8EbA09J7RQaflQ1aBRffTR7xedD2bcIVSYxLnkM=
 github.com/tidwall/gjson v1.14.4/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/match v1.1.1 h1:+Ho715JplO36QYgwN9PGYNhgZvoUSc9X2c80KVTi+GA=

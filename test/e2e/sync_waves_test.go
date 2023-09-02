@@ -6,6 +6,7 @@ import (
 	. "github.com/argoproj/argo-cd/v2/pkg/apis/application/v1alpha1"
 	. "github.com/argoproj/argo-cd/v2/test/e2e/fixture"
 	. "github.com/argoproj/argo-cd/v2/test/e2e/fixture/app"
+	v1 "k8s.io/api/core/v1"
 
 	"github.com/argoproj/gitops-engine/pkg/health"
 	. "github.com/argoproj/gitops-engine/pkg/sync/common"
@@ -99,4 +100,60 @@ func TestDegradedDeploymentIsSucceededAndSynced(t *testing.T) {
 		Expect(HealthIs(health.HealthStatusDegraded)).
 		Expect(SyncStatusIs(SyncStatusCodeSynced)).
 		Expect(ResourceResultNumbering(1))
+}
+
+func TestSyncPruneOrderWithSyncWaves(t *testing.T) {
+	ctx := Given(t)
+
+	// ensure proper cleanup if test fails at early stage
+	defer RunCli("app", "patch-resource", ctx.AppQualifiedName(), 
+		"--kind", "Pod", 
+		"--resource-name", "pod-2", 
+		"--patch", `[{"op": "remove", "path": "/metadata/finalizers"}]`,
+		"--patch-type", "application/json-patch+json", "--all",
+	)
+
+	ctx.Path("two-nice-pods").
+		When().
+		PatchFile("pod-1.yaml", `[{"op": "add", "path": "/metadata/annotations", "value": {"argocd.argoproj.io/sync-wave": "1"}}]`).
+		PatchFile("pod-2.yaml", `[{"op": "add", "path": "/metadata/annotations", "value": {"argocd.argoproj.io/sync-wave": "2"}}]`).
+		CreateApp().
+		Sync().
+		Then().
+		Expect(SyncStatusIs(SyncStatusCodeSynced)).
+		Expect(HealthIs(health.HealthStatusHealthy)).
+		When().
+		// delete files to remove pods
+		DeleteFile("pod-1.yaml").
+		DeleteFile("pod-2.yaml").
+		// add a finalizer on live pod2 to block cleanup
+		PatchAppResource("Pod", "pod-2", `[{"op": "add", "path": "/metadata/finalizers", "value": ["example.com/block-deletion"]}]`, "--patch-type", "application/json-patch+json").
+		AddFile("dummy.txt", `# add a dummy file to prevent failure due to "two-nice-pods: app path does not exist" error`).
+		Refresh(RefreshTypeHard).
+		IgnoreErrors().
+		Then().
+		Expect(SyncStatusIs(SyncStatusCodeOutOfSync)).
+		When().
+		// prune order: pod2 -> pod1
+		Sync("--prune", "--async").
+		Then().
+		Expect(OperationPhaseIs(OperationRunning)).
+		Expect(ResourceResultCodeIs("Pod", "pod-2", ResultCodePruned)).
+		Expect(ResourceResultCodeIs("Pod", "pod-1", "")).
+		Expect(Pod(func(p v1.Pod) bool { return p.Name == "pod-2" && p.GetDeletionTimestamp() != nil })).
+		Expect(Pod(func(p v1.Pod) bool { return p.Name == "pod-1" && p.GetDeletionTimestamp() == nil })).
+		When().
+		// remove finalizer on pod-2 to delete the pod from cluster
+		PatchAppResource("Pod", "pod-2", `[{"op": "remove", "path": "/metadata/finalizers"}]`, "--patch-type", "application/json-patch+json").
+		Wait().
+		Refresh(RefreshTypeHard).
+		Then().
+		Expect(OperationPhaseIs(OperationSucceeded)).
+		Expect(SyncStatusIs(SyncStatusCodeSynced)).
+		Expect(ResourceResultCodeIs("Pod", "pod-2", ResultCodePruned)).
+		Expect(ResourceResultCodeIs("Pod", "pod-1", ResultCodePruned)).
+		Expect(NotPod(func(p v1.Pod) bool { return p.Name == "pod-2" })).
+		Expect(NotPod(func(p v1.Pod) bool { return p.Name == "pod-1" })).
+		Expect(HealthIs(health.HealthStatusHealthy))
+
 }

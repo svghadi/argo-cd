@@ -178,6 +178,21 @@ func ResourceResultIs(result ResourceResult) Expectation {
 	}
 }
 
+func ResourceResultCodeIs(kind, resource string, expected ResultCode) Expectation {
+	return func(c *Consequences) (state, string) {
+		var actual ResultCode
+		if c.app().Status.OperationState.SyncResult != nil {
+			results := c.app().Status.OperationState.SyncResult.Resources
+			for _, res := range results {
+				if res.Kind == kind && res.Name == resource {
+					actual = res.Status
+				}
+			}
+		}
+		return simple(actual == expected, fmt.Sprintf("resource '%s/%s' health should be %s, is %s", kind, resource, expected, actual))
+	}
+}
+
 func sameResourceResult(res1, res2 ResourceResult) bool {
 	return res1.Kind == res2.Kind &&
 		res1.Group == res2.Group &&

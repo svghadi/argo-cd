@@ -297,6 +297,14 @@ func (a *Actions) PatchApp(patch string) *Actions {
 	return a
 }
 
+func (a *Actions) PatchAppResource(kind string, resourceName string, patch string, flags ...string) *Actions {
+	a.context.t.Helper()
+	args := []string{"app", "patch-resource", a.context.AppQualifiedName(), "--kind", kind, "--resource-name", resourceName, "--patch", patch}
+	args = append(args, flags...)
+	a.runCli(args...)
+	return a
+}
+
 func (a *Actions) PatchAppHttp(patch string) *Actions {
 	a.context.t.Helper()
 	var application Application

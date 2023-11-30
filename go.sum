@@ -696,8 +696,6 @@ github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb
 github.com/apache/thrift v0.13.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
 github.com/apache/thrift v0.16.0/go.mod h1:PHK3hniurgQaNMZYaCLEqXKsYK8upmhPbmdP2FXSqgU=
 github.com/appscode/go v0.0.0-20191119085241-0887d8ec2ecc/go.mod h1:OawnOmAL4ZX3YaPdN+8HTNwBveT1jMsqP74moa9XUbE=
-github.com/argoproj/gitops-engine v0.7.1-0.20231102154024-c0c2dd1f6f48 h1:vnXMrNkBFC0H0KBkH1Jno31OVgJQR4KSd0ypEcfzQRA=
-github.com/argoproj/gitops-engine v0.7.1-0.20231102154024-c0c2dd1f6f48/go.mod h1:1TchqKw9XmYYZluyEHa1dTJQoZgbV6PhabB/e8Wf3KY=
 github.com/argoproj/notifications-engine v0.4.1-0.20231027194313-a8d185ecc0a9 h1:1lt0VXzmLK7Vv0kaeal3S6/JIfzPyBORkUWXhiqF3l0=
 github.com/argoproj/notifications-engine v0.4.1-0.20231027194313-a8d185ecc0a9/go.mod h1:E/vv4+by868m0mmflaRfGBmKBtAupoF+mmyfekP8QCk=
 github.com/argoproj/pkg v0.13.7-0.20230626144333-d56162821bd1 h1:qsHwwOJ21K2Ao0xPju1sNuqphyMnMYkyB3ZLoLtxWpo=
@@ -1676,6 +1674,8 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/svghadi/gitops-engine v0.0.0-20231127150132-42c693b5ace6 h1:L8l6BS+QwuQYZpUfEflLDdJo13slhy9KDy/+Eb/rXZs=
+github.com/svghadi/gitops-engine v0.0.0-20231127150132-42c693b5ace6/go.mod h1:1TchqKw9XmYYZluyEHa1dTJQoZgbV6PhabB/e8Wf3KY=
 github.com/tidwall/gjson v1.14.4 h1:uo0p8EbA09J7RQaflQ1aBRffTR7xedD2bcIVSYxLnkM=
 github.com/tidwall/gjson v1.14.4/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/match v1.1.1 h1:+Ho715JplO36QYgwN9PGYNhgZvoUSc9X2c80KVTi+GA=

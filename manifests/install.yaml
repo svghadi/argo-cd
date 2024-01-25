@@ -1697,6 +1697,11 @@ spec:
                 description: Health contains information about the application's current
                   health status
                 properties:
+                  lastUpdateTime:
+                    description: LastUpdateTime contains the timestamp of last health
+                      status update
+                    format: date-time
+                    type: string
                   message:
                     description: Message is a human-readable informational message
                       describing the health status
@@ -4112,6 +4117,11 @@ spec:
                       description: HealthStatus contains information about the currently
                         observed health state of an application or resource
                       properties:
+                        lastUpdateTime:
+                          description: LastUpdateTime contains the timestamp of last
+                            health status update
+                          format: date-time
+                          type: string
                         message:
                           description: Message is a human-readable informational message
                             describing the health status
